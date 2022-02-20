@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html xmlns="#">
+<head>
+  <title>Student Management JSON - JQUERY</title>
+  <link href="../Content/bootstrap.css" rel="stylesheet" />
+ 
+  <script src="../Scripts/jquery-1.11.0.min.js"></script>
+  <script src="../Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Student Form
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="name">
+                Name
+              </label>
+              <input type="text"
+                     class="form-control"
+                     value="Kiều Mạnh Quân"
+                     id="name" />
+            </div>
+            <div class="form-group">
+              <label for="birthday">
+                Birthday
+              </label>
+              <input type="date"
+                     class="form-control"
+                     value="06/07/2000"
+                     id="birthday" />
+            </div>
+            <div class="form-group">
+              <label for="phone">
+                Mobile phone
+              </label>
+              <input type="phone"
+                     class="form-control"
+                     value="0947826***"
+                     id="phone" />
+            </div>
+            <div class="form-group">
+              <label for="hometown">
+                Hometown
+              </label>
+              <input type="hometown"
+                     class="form-control"
+                     value="Hà Nội"
+                     id="hometown" />
+            </div>
+          </div>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" id="updateButton"
+                        class="btn btn-primary"
+                        onclick="productUpdate();">
+                  Add
+                </button>
+                 <button type="button" id="cleanButton"
+                        class="btn btn-primary"
+                        onclick="formClean();">
+                  Clean
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 text-center">
+        <h2>Student Table</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <table id="productTable" 
+               class="table table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Birthday</th>
+              <th>Mobile phone</th>
+              <th>Hometown</th>
+              <th>Delete</th>
+               <th>Edit</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+    
+  </div>
+
+  <script>
+    // Next id for adding a new Product
+    var nextId = 1;
+    // ID of Product currently editing
+    var activeId = 0;
+
+    function productDisplay(ctl) {
+      var row = $(ctl).parents("tr");
+      var cols = row.children("td");
+
+      $("#name").val($(cols[0]).text());
+      $("#birthday").val($(cols[1]).text());
+      $("#phone").val($(cols[2]).text());
+      $("#hometown").val($(cols[3]).text());
+
+      // Change Update Button Text
+      $("#updateButton").text("Update");
+      activeId = $($(cols[5]).children("button")[0]).data("id");
+    }
+
+    function productUpdate() {
+      if ($("#updateButton").text() == "Update") {
+        productUpdateInTable(activeId);
+      }
+      else {
+        productAddToTable();
+      }
+
+      // Clear form fields
+      formClean();
+
+      // Focus to product name field
+      $("#name").focus();
+    }
+
+    // Add product to <table>
+    function productAddToTable() {
+      // First check if a <tbody> tag exists, add one if not
+      if ($("#productTable tbody").length == 0) {
+        $("#productTable").append("<tbody></tbody>");
+      }
+
+      // Append product to table
+      $("#productTable tbody").append(
+        productBuildTableRow(nextId));
+
+      // Increment next ID to use
+      nextId += 1;
+    }
+
+    // Update product in <table>
+    function productUpdateInTable(id) {
+      // Find Product in <table>
+      var row = $("#productTable button[data-id='" + id + "']")
+                .parents("tr")[0];
+
+      // Add changed product to table
+      $(row).after(productBuildTableRow(id));
+      // Remove original product
+      $(row).remove();
+
+      // Clear form fields
+      formClear();
+
+      // Change Update Button Text
+      $("#updateButton").text("Add");
+    }
+
+    // Build a <table> row of Product data
+    function productBuildTableRow(id) {
+      var ret =
+      "<tr>" +
+        "<td>" + $("#name").val() + "</td>" +
+        "<td>" + $("#birthday").val() + "</td>" +
+        "<td>" + $("#phone").val() + "</td>" +
+        "<td>" + $("#hometown").val() + "</td>" +
+        "<td>" +
+          "<button type='button' " +
+                  "onclick='productDelete(this);' " +
+                  "class='btn btn-default' " +
+                  "data-id='" + id + "'>" +
+                  "<span class='glyphicon glyphicon-remove' />" +
+          "</button>" +
+        "</td>" +
+        "<td>" +
+          "<button type='button' " +
+                  "onclick='productDisplay(this);' " +
+                  "class='btn btn-default' " +
+                  "data-id='" + id + "'>" +
+                  "<span class='glyphicon glyphicon-edit' />" +
+          "</button>" +
+        "</td>" +
+      "</tr>"
+
+      return ret;
+    }
+
+    // Delete product from <table>
+    function productDelete(ctl) {
+      $(ctl).parents("tr").remove();
+    }
+
+    // Clear form fields
+    function formClean() {
+      $("#name").val("");
+      $("#birthday").val("");
+      $("#phone").val("");
+      $("#hometown").val("");
+    }
+  </script>
+</body>
+</html>
