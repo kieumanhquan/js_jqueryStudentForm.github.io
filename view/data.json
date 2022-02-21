@@ -1,0 +1,46 @@
+{
+  "student": [
+    {
+      "id": 0,
+      "name": "kieumanhquan",
+      "birthday": "2000-07-06",
+      "phone": "0123456789",
+      "hometown": "hanoi"
+    },
+    {
+      "id": 1,
+      "name": "kieumanhquan",
+      "birthday": "2000-01-01",
+      "phone": "0123456789",
+      "hometown": "hanoi"
+    },
+    {
+      "id": 2,
+      "name": "kieumanhquan",
+      "birthday": "2000-01-01",
+      "phone": "0123456789",
+      "hometown": "hanoi"
+    },
+    {
+      "id": 3,
+      "name": "kieumanhquan",
+      "birthday": "2000-01-01",
+      "phone": "0123456789",
+      "hometown": "hanoi"
+    },
+    {
+      "id": 4,
+      "name": "kieumanhquan",
+      "birthday": "2000-01-01",
+      "phone": "0123456789",
+      "hometown": "hanoi"
+    },
+    {
+      "id": 5,
+      "name": "kieumanhquan",
+      "birthday": "2000-01-01",
+      "phone": "0123456789",
+      "hometown": "hanoi"
+    }
+  ]
+}
